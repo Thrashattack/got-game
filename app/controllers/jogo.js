@@ -13,7 +13,7 @@ module.exports.get = (app, req, res) => {
     }
     const callback = (jogo) => res.render('jogo', {img_casa: req.session.casa, jogo, erro, acaoInserida});
     
-    const JogoDAO = new app.app.models.jogoDAO(app.config.dbConnection);
+    const JogoDAO = new app.app.models.jogoDAO(app.dbConnection);
     JogoDAO.iniciarJogo(req.session.usuario, callback)        
 
 }
@@ -37,7 +37,7 @@ module.exports.pergaminhos = (app, req, res) => {
         res.render('index', {validation:[{msg: 'Usuario precisa estar autenticado!'}], dadosForm: {}});      
         return;
     }  
-    const JogoDAO = new app.app.models.jogoDAO(app.config.dbConnection);
+    const JogoDAO = new app.app.models.jogoDAO(app.dbConnection);
     const callback = (acoes) => res.render('pergaminhos', { acoes });
     JogoDAO.obterAcoes(req.session.usuario, callback);
 }
@@ -59,7 +59,7 @@ module.exports.ordenar_acao_sudito = (app, req, res) => {
            return;
        }
 
-       const JogoDAO = new app.app.models.jogoDAO(app.config.dbConnection);
+       const JogoDAO = new app.app.models.jogoDAO(app.dbConnection);
        dadosForm.usuario = req.session.usuario
        JogoDAO.acao(dadosForm);
        res.redirect('jogo?acao_inserida=s')

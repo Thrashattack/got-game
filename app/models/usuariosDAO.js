@@ -23,25 +23,37 @@ class UsuariosDAO {
         console.log('[DATABASE - USUARIOS] - Autenticação iniciada | id: ' + usuario.usuario);
         this._connection.connect((err, mongoClient) => {
             if(!err) {
+                console.log("Conectado Ao banco");
                 mongoClient.db('got').collection('usuarios', async (err, collection) => {
                     if(!err) {
+                        console.log("Coleção de usuários pronta")
                         await collection.find(usuario).toArray((err, result) => {
                             if(result[0] !== undefined) {
+                                console.warn("Usuário Encontrado!")
                                 session.autorizado = true;
 
                                 session.usuario = result[0].usuario;
                                 session.casa = result[0].casa;
-                            }
-                            
-                            if(session.autorizado) {
+                                
+                                console.log('[DATABASE - USUARIOS] - Autenticação finalizada | id: ' + usuario.usuario);
+                                mongoClient.close();
+                                
+                                console.log("Autorizado")
                                 res.redirect('jogo');
-                            } else res.render('index', {validation: [{msg:'Usuário ou senha inválidos!.'}], dadosForm: {}});
+                            } else {
+                                console.log('[DATABASE - USUARIOS] - Autenticação finalizada Porém Falhou | id: ' + usuario.usuario);
+                                mongoClient.close();
+                                res.render('index', {validation: [{msg:'Usuário ou senha inválidos!.'}], dadosForm: {}});
+                            }
 
-                            console.log('[DATABASE - USUARIOS] - Autenticação finalizada | id: ' + usuario.usuario);
-                            mongoClient.close();
+                            
                         });
+                    } else {
+                        console.error(err);
                     }
                 })
+            } else {
+                console.error(err);
             }
         });
     }

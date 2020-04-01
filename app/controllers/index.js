@@ -14,7 +14,7 @@ module.exports.post = (app, req, res) => {
         res.render('index', {validation: errors, dadosForm});
         return;
     }
-    const UsuariosDAO = new app.app.models.usuariosDAO(app.config.dbConnection);
+    const UsuariosDAO = new app.app.models.usuariosDAO(app.dbConnection);
     
     UsuariosDAO.autenticar(dadosForm, req.session, res);
 

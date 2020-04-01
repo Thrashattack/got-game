@@ -16,6 +16,7 @@ var expressSession = require('express-session');
 /* iniciar o objeto do express */
 var app = express();
 
+app.dbConnection = require('./dbConnection.js');
 
 
 /* setar as variáveis 'view engine' e 'views' do express */
@@ -40,7 +41,6 @@ app.use(expressSession({
 /* efetua o autoload das rotas, dos models e dos controllers para o objeto app */
 consign()
 	.include('app/routes')
-	.then('config/dbConnection.js')
 	.then('app/models')
 	.then('app/controllers')
 	.into(app);

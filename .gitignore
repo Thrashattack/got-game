@@ -1,2 +1,4 @@
 node_modules
 .env.local
+keypararch.pem
+easydeploy.sh

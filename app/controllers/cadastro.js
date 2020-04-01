@@ -3,8 +3,8 @@ module.exports.get = (app, req, res) => {
 }
 
 module.exports.post = (app, req, res) => {
-    const UsuariosDAO = new app.app.models.usuariosDAO(app.config.dbConnection);
-    const JogoDAO = new app.app.models.jogoDAO(app.config.dbConnection);
+    const UsuariosDAO = new app.app.models.usuariosDAO(app.dbConnection);
+    const JogoDAO = new app.app.models.jogoDAO(app.dbConnection);
     const dadosForm = req.body;
 
     req.assert('nome', 'Nome não pode ser vazio!').notEmpty();
