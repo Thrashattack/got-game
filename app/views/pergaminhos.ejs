@@ -1,0 +1,13 @@
+<div id="pergaminhos">					
+    <h3>Pergaminhos</h3>
+    <% acoes.forEach(acao => { %>
+    <ul>
+        <% switch(acao.acao) { %>
+        <% case '2' %><li><%= acao.quantidade %> enforcamento(s) programado - <small>restam <%= new Date(acao.termina_em).getTime() / 1000 %> segundos - <a href="#">revogar ordem</a></small></li>
+        <% case '4' %><li><%= acao.quantidade %> aldeão(ões) em treinamento de magia - <small>restam <%= new Date(acao.termina_em).getTime() / 1000 %> segundos - <a href="#">revogar ordem</a></small></li>
+        <% case '3' %><li><%= acao.quantidade %> aldeão(ões) em treinamento de história - <small>restam <%= new Date(acao.termina_em).getTime() / 1000 %> segundos - <a href="#">revogar ordem</a></small></li>
+        <% case '1' %><li><%= acao.quantidade %> aldeão(ões) coletando recursos - <small>restam <%= new Date(acao.termina_em).getTime() / 1000 %> segundos - <a href="#">revogar ordem</a></small></li>	
+        <% } %>
+    </ul>
+    <% }) %>
+</div>
